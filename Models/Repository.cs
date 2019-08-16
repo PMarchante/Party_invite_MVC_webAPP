@@ -1,25 +1,18 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace PartyInvites.Models
 {
-    public class Repository
+    public class Repository : DbContext
     {
-        private static List<Guestresponse> responses = new List<Guestresponse>();
+        public DbSet<Guestresponse> Responses { get; set; }
 
-        public static IEnumerable<Guestresponse> Responses
+        protected override void OnConfiguring(DbContextOptionsBuilder opts)
         {
-            get
-            {
-                return responses;
-            }
-        }
-
-        public static void AddResponse(Guestresponse response)
-        {
-            responses.Add(response);
+            opts.UseSqlServer("Server=(localdb)\\ProjectsV13;Database=RSVPdata;trusted_Connection=true;");
         }
     }
 }

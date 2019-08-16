@@ -14,7 +14,7 @@ namespace PartyInvites.Controllers
     {
         public IActionResult Index()
         {
-            //ViewBag.dumb = "hey";
+
 
             return View();
         }

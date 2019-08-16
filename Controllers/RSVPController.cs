@@ -9,21 +9,24 @@ namespace PartyInvites.Controllers
 {
     public class RSVPController : Controller
     {
+        Repository _dbcontext = new Repository();
         [HttpGet]
         public IActionResult RSVPForm()
         {
+            _dbcontext.Database.EnsureCreated();
             return View();
         }
         [HttpPost]
         public IActionResult RSVPForm(Guestresponse response)
         {
-            Repository.AddResponse(response);
+            _dbcontext.Responses.Add(response);
+            _dbcontext.SaveChanges();
             return View("Thanks", response);
         }
 
         public IActionResult ListResponses()
         {
-            return View(Repository.Responses.Where(r => r.WillAttend == true));
+            return View(_dbcontext.Responses.Where(r => r.WillAttend == true));
         }
     }
 }
